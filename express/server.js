@@ -100,7 +100,7 @@ router.get('/gallery-section', cors(), (req, res) => {
 
 router.post('/contact-us', cors(), (req, res) => {
     console.log('Triggered')
-    const original_post_request_url = req.body.original_post_request_url;
+    const contactUsURL = req.body.original_post_request_url;
     const options = {
         method: 'POST',
         url: 'https://api.notion.com/v1/pages',
@@ -226,8 +226,8 @@ router.post('/contact-us', cors(), (req, res) => {
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
         console.log(`Success: Data submitted`)
-        console.log(original_post_request_url)
-        res.redirect(original_post_request_url)
+        console.log(contactUsURL)
+        res.redirect(contactUsURL)
     });
 })
 
