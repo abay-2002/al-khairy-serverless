@@ -1,0 +1,24 @@
+{
+  "name": "al-khairy-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon local-server",
+    "start": "node local-server.js",
+    "lambda-build": "netlify-lambda build express",
+    "lambda-start": "netlify-lambda serve express"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "netlify-lambda": "^2.0.15",
+    "request": "^2.88.2",
+    "serverless-http": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

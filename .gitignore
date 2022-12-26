@@ -1,0 +1,4 @@
+# Functions akan digenerate pada build
+functions
+node_modules
+.vscode
