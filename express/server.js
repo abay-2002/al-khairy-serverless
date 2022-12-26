@@ -363,8 +363,7 @@ router.post('/email-subscription', cors(), (req, res) => {
     });
 })
 
-router.post('/article', cors(), (req, res) => {
-    const contactUsURL = req.body.original_post_request_url;
+router.post('/artikel', cors(), (req, res) => {
     const options = {
         method: 'POST',
         url: 'https://api.notion.com/v1/pages',
@@ -490,6 +489,7 @@ router.post('/article', cors(), (req, res) => {
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
         console.log(`Success: ${req.body.user_email} just subscribed!`)
+        const contactUsURL = req.body.original_post_request_url;
         console.log(contactUsURL)
         res.redirect(contactUsURL)
     });
