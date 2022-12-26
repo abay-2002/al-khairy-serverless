@@ -489,7 +489,8 @@ router.post('/artikel', cors(), (req, res) => {
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
         console.log(`Success: ${req.body.user_email} just subscribed!`)
-        res.redirect('/')
+        const contactUsURL = req.body.original_post_request_url;
+        res.redirect(contactUsURL)
     });
 })
 
