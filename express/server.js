@@ -226,12 +226,13 @@ router.post('/contact-us', cors(), (req, res) => {
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
         console.log(`Success: Data submitted`)
-        const current = req.originalUrl;
-        res.redirect(current)
+        console.log(original_post_request_url)
+        res.redirect(original_post_request_url)
     });
 })
 
 router.post('/email-subscription', cors(), (req, res) => {
+    const original_post_request_url = req.body.original_post_request_url;
     const options = {
         method: 'POST',
         url: 'https://api.notion.com/v1/pages',
@@ -356,8 +357,9 @@ router.post('/email-subscription', cors(), (req, res) => {
 
     request(options, function (error, response, body) {
         if (error) throw new Error(error);
-        const currentUrl = req.originalUrl;
-        res.redirect(currentUrl)
+        console.log(`Success: ${req.body.user_email} just subscribed!`)
+        console.log(original_post_request_url)
+        res.redirect(original_post_request_url)
     });
 })
 
