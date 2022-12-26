@@ -363,6 +363,138 @@ router.post('/email-subscription', cors(), (req, res) => {
     });
 })
 
+router.post('/article-page-email-subscription', cors(), (req, res) => {
+    const original_post_request_url = req.body.original_post_request_url;
+    const options = {
+        method: 'POST',
+        url: 'https://api.notion.com/v1/pages',
+        headers: {
+            accept: 'application/json',
+            'Notion-Version': '2022-06-28',
+            'content-type': 'application/json',
+            'Authorization': process.env.NOTION_TOKEN
+        },
+        body: {
+            "parent": {
+                "type":"database_id",
+                "database_id": process.env.NOTION_DATABASE_ID
+            },
+            "archived": false,
+            "properties": {
+                "email": {
+                    "type": "email",
+                    "email": req.body.user_email
+                },
+                "message": {
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "-",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "-",
+                            "href": null
+                        }
+                    ]
+                },
+                "name": {
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "-",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "-",
+                            "href": null
+                        }
+                    ]
+                },
+                "subject": {
+                    "type": "rich_text",
+                    "rich_text": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "-",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "-",
+                            "href": null
+                        }
+                    ]
+                },
+                "Tags": {
+                    "type": "multi_select",
+                    "multi_select": [
+                        {
+                            "name": "Email subscribers",
+                            "color": "green"
+                        }
+                    ]
+                },
+                "Name": {
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": `${req.body.user_email} Subscribed`,
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "green"
+                            },
+                            "plain_text": `${req.body.user_email} Subscribed`,
+                            "href": null
+                        }
+                    ]
+                }
+            }
+        },
+        json: true
+    };
+
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        console.log(`Success: ${req.body.user_email} just subscribed!`)
+        console.log(original_post_request_url)
+        res.redirect(original_post_request_url)
+    });
+})
+
 app.use(router)
 app.use('/.netlify/functions/server', router);  // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
