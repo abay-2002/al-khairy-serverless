@@ -98,7 +98,7 @@ router.get('/gallery-section', cors(), (req, res) => {
     });
 })
 
-router.post("/hubungi", cors(), (req, res) => {
+router.post('/hubungi', cors(), (req, res) => {
     console.log('Triggered')
     const original_post_request_url = req.body.original_post_request_url;
     const options = {
